@@ -1,8 +1,9 @@
 {
-  description = "Holistic Uni flake";
+  description = "Data science flake that requires R for uni work";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/master";
+    # mojo.url = "github:noverby/noverby";
   };
 
   outputs =
@@ -10,6 +11,7 @@
       self,
       nixpkgs,
       flake-utils,
+    # mojo,
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
@@ -23,11 +25,12 @@
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               git
+              # mojo.packages.${system}.mojo # check later when ready
               harper
+              R
               typst
               typstfmt
               typst-live
-              verilog
             ];
 
             shellHook = ''
