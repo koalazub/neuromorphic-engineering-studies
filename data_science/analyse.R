@@ -1,6 +1,6 @@
 library(ggplot2)
 
-data_url <- "http://staff.scm.uws.edu.au/~lapark/download/data/student-mat.csv"
+data_url <- "https://staff.scm.uws.edu.au/~lapark/download/data/student-mat.csv"
 
 student_data <- read.csv(data_url, sep = ";")
 grade_vs_age_model <- lm(G3 ~ age, data = student_data)
