@@ -1,5 +1,5 @@
 {
-  description = "SystemVerilog Development Environment";
+  description = "Neuromorphic Electronic Design";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -23,29 +23,23 @@
           };
         };
 
-        # Check if the system is aarch64-darwin (M1/M2 Mac)
         isAarch64Darwin = system == "aarch64-darwin";
 
-        # Create a list of packages based on system architecture
         commonPackages = with pkgs; [
           iverilog # Icarus Verilog for simulation
           verilator # Verilator for linting and synthesis
-          gtkwave # GTKWave for waveform visualization
           python3 # Python for cocotb (testbench framework)
-          # quartus-prime-lite
           utm
           git
+          svls
         ];
 
-        # Add Verible only if not on aarch64-darwin, or try with allowUnsupportedSystem
         veriblePackage = if !isAarch64Darwin then [ pkgs.verible ] else [ ];
 
-        # Alternative LSP for aarch64-darwin (if available)
         alternativeLspPackages =
           if isAarch64Darwin then
             [
-              # You could add alternative LSP servers here if available
-              # For example: pkgs.svls or other compatible tools
+              pkgs.surfer
             ]
           else
             [ ];
@@ -56,10 +50,8 @@
         devShells.default = pkgs.mkShell {
           name = "nm-elec-design";
 
-          # Add packages for SystemVerilog development
           packages = allPackages;
 
-          # Environment variables and shell hook
           shellHook = ''
             ${if builtins.length veriblePackage > 0 then "export PATH=$PATH:${pkgs.verible}/bin" else ""}
 

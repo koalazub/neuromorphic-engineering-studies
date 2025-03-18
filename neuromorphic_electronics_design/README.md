@@ -35,9 +35,11 @@ The flake provides:
 - **python3**: For cocotb (testbench framework)
 - **UTM**: For virtualization to run Quartus Prime
 
-## Compiling and Simulating
+## Running, Compiling and Simulating
 
 ### Simulation with Icarus Verilog
+
+This compiles the verilog code and generates the waves that can be run
 ```bash
 iverilog -o my_design my_design.sv my_testbench.sv
 vvp my_design
