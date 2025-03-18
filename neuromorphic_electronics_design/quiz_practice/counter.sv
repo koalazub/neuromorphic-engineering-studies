@@ -7,7 +7,7 @@
 
 // reg can store values in procedural blocks
 // wire represents connections between hardware elements but doesn't store values
-module adder (
+module counter (
     input  logic [3:0] a,
     input  logic [3:0] b,
     output logic [3:0] sum  // this is 4-bit
