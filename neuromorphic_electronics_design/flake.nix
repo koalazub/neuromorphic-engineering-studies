@@ -31,7 +31,6 @@
           python3 # Python for cocotb (testbench framework)
           utm
           git
-          svls
         ];
 
         veriblePackage = if !isAarch64Darwin then [ pkgs.verible ] else [ ];

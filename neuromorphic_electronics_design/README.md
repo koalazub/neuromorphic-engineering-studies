@@ -11,11 +11,11 @@ This repository provides a Nix-based development environment for SystemVerilog p
    nix develop
    ```
 
-The flake automatically installs UTM (Universal Type Manager) for virtualization, which is required to run Quartus Prime on macOS. Note that UTM is a large package, so the initial download may take some time.
+The flake automatically installs UTM (Universal Type Manager) for virtualisation, which is required to run Prime on macOS. Note that UTM is a large package, so the initial download may take some time.
 
 ## Running Quartus Prime on macOS
 
-Since Quartus Prime doesn't run natively on macOS (especially on Apple Silicon Macs), you'll need to use virtualization:
+Since Quartus Prime doesn't run natively on macOS (especially on Apple Silicon Macs), you'll need to use virtualisation:
 
 1. Download a Windows ISO from Microsoft's website
 2. Run UTM from the terminal:
@@ -31,9 +31,11 @@ Since Quartus Prime doesn't run natively on macOS (especially on Apple Silicon M
 The flake provides:
 - **iverilog**: Icarus Verilog for simulation
 - **verilator**: For linting and synthesis
-- **gtkwave**: For waveform visualization
 - **python3**: For cocotb (testbench framework)
-- **UTM**: For virtualization to run Quartus Prime
+- **UTM**: For virtualisation to run Quartus Prime
+- **git**: For version control
+- **surfer**: For waveform visualisation (on Apple Silicon Macs)
+- **verible**: For SystemVerilog formatting and linting (not available on Apple Silicon Macs unless you install via Homebrew)
 
 ## Running, Compiling and Simulating
 
@@ -52,14 +54,17 @@ verilator --lint-only my_design.sv
 
 ### Viewing Waveforms
 ```bash
-gtkwave my_simulation.vcd
+surfer my_simulation.vcd
 ```
 
-## Notes for Apple Silicon (M1/M2/M3) Mac Users
+## Notes for Apple Silicon (M Series) Mac Users
 
-- Some tools like Verible may not be available natively on ARM architecture
+- Verible is not available natively on ARM architecture
 - Consider using Rosetta 2 to run Nix in x86_64 mode for full functionality
 - Quartus Prime must be run through a Windows or Linux virtual machine using UTM
+- Surfer is provided as an alternative waveform viewer for Apple Silicon Macs
+
+---
 
 ---
 Answer from Perplexity: pplx.ai/share
