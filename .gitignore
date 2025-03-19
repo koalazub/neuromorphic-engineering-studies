@@ -1,4 +1,5 @@
 .zig-cache/
 zig-out/
 .idea/
-.DS_Store
+*.mp*
+*.DS_Store
