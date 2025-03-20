@@ -24,9 +24,11 @@
             buildInputs = with pkgs; [
               git
               harper
+              ruff
+              ruff-lsp
               typst
-              typstfmt
               typst-live
+              typstfmt
               verilog
             ];
 

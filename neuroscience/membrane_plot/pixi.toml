@@ -1,0 +1,10 @@
+[project]
+authors = ["koalazub <7111524+koalazub@users.noreply.github.com>"]
+channels = ["https://conda.modular.com/max-nightly", "https://conda.modular.com/max", "https://repo.prefix.dev/modular-community", "conda-forge"]
+name = "membrane_plot"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
