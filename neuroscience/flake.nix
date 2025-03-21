@@ -23,6 +23,14 @@
             allowUnfree = true;
           };
         };
+
+        python-with-packages = pkgs.python313.withPackages (
+          ps: with ps; [
+            brian2
+            matplotlib
+            numpy
+          ]
+        );
       in
       {
         devShells.default = pkgs.mkShell {
@@ -35,9 +43,7 @@
             git
             just
             nushell
-            python313Packages.brian2
-            python313Packages.matplotlib
-            python313Packages.numpy
+            python-with-packages
             ruff
             ruff-lsp
             tokei
