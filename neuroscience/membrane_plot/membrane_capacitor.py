@@ -7,7 +7,7 @@ def membrane_capacitor_demo():
     prefs.codegen.target = "numpy"
     defaultclock.dt = 0.01 * ms
 
-    # Mentioned in lecture 1 pg. 64 
+    # Mentioned in lecture 1 pg. 64
     # I = Amp
     # volt in V(or v)
     # C is capacitance which is measure in Farads(F)
@@ -64,7 +64,8 @@ def membrane_capacitor_demo():
     plt.grid(True)
 
     plt.tight_layout()
-    plt.savefig("output/membrane_capacitance_demo.png", dpi=300)
+    plt.savefig("./lab_reports/images/membrane_capacitance_demo.png", dpi=300)
+    print("file saved at:", "./lab_reports/images/membrane_capacitance_demo.png")
 
     print("\nResults:")
     print("Current (nA) | Slope (mV/ms)")

@@ -32,29 +32,16 @@ def capacitance_variation_demo():
 
     plt.figure(figsize=(12, 8))
 
-    plt.subplot(211)
-    colors = ["b", "g", "r", "c"]
+    # Calculate slopes without plotting the top graph
     slopes = []
-
     for i in range(num_capacitances):
-        plt.plot(
-            M.t / ms,
-            M.v[i] / mV,
-            color=colors[i],
-            label=f"Capacitance = {capacitance_values[i] / uF} uF",
-        )
-
         time_data = M.t / ms
         voltage_data = M.v[i] / mV
         slope, _ = np.polyfit(time_data, voltage_data, 1)
         slopes.append(slope)
 
-    plt.xlabel("Time (ms)")
-    plt.ylabel("Membrane potential (mV)")
-    plt.title("Membrane Potential Changes for Different Capacitance Values")
-    plt.legend()
-
-    plt.subplot(212)
+    # Plot only the capacitance vs slope graph
+    plt.subplot(111)  # Use the entire figure for one plot
     plt.plot([cap / uF for cap in capacitance_values], slopes, "o-")
     plt.xlabel("Capacitance (uF)")
     plt.ylabel("Voltage Slope (mV/ms)")
@@ -68,7 +55,7 @@ def capacitance_variation_demo():
     plt.legend()
 
     plt.tight_layout()
-    save_location = "lab_reports/images/capacitance_variation_demo.png"
+    save_location = "lab_reports/images/capacitance_variation.png"
     plt.savefig(save_location, dpi=300)
 
     print("\nResults:")
@@ -81,7 +68,7 @@ if __name__ == "__main__":
     try:
         capacitance_variation_demo()
         print(
-            "Simulation completed successfully. Plot saved to lab_reports/images/capacitance_variation_demo.png"
+            "Simulation completed successfully. Plot saved to lab_reports/images/capacitance_variation.png"
         )
     except Exception as e:
         print(f"An error occurred: {e}")
