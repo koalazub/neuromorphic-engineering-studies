@@ -68,7 +68,8 @@ def capacitance_variation_demo():
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig("output/capacitance_variation_demo.png", dpi=300)
+    save_location = "lab_reports/images/capacitance_variation_demo.png"
+    plt.savefig(save_location, dpi=300)
 
     print("\nResults:")
     print("Capacitance (uF) | Slope (mV/ms)")
@@ -80,7 +81,7 @@ if __name__ == "__main__":
     try:
         capacitance_variation_demo()
         print(
-            "Simulation completed successfully. Plot saved to output/capacitance_variation_demo.png"
+            "Simulation completed successfully. Plot saved to lab_reports/images/capacitance_variation_demo.png"
         )
     except Exception as e:
         print(f"An error occurred: {e}")
