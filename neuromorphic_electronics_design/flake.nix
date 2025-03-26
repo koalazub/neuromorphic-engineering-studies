@@ -1,9 +1,10 @@
 {
-  description = "Neuromorphic Electronic Design";
+  description = "Neuromorphic Electronic Design with integrated Mojo Playground";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    mojoPlayground.url = "github:franckrasolo/mojo-playground.nix";
   };
 
   outputs =
@@ -11,6 +12,7 @@
       self,
       nixpkgs,
       flake-utils,
+      mojoPlayground,
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
@@ -28,55 +30,53 @@
         commonPackages = with pkgs; [
           iverilog # Icarus Verilog for simulation
           verilator # Verilator for linting and synthesis
-          python3 # Python for cocotb (testbench framework)
+          python3 # For cocotb (testbench framework)
           utm
           git
+          uv
         ];
 
         veriblePackage = if !isAarch64Darwin then [ pkgs.verible ] else [ ];
-
-        alternativeLspPackages =
-          if isAarch64Darwin then
-            [
-              pkgs.surfer
-            ]
-          else
-            [ ];
-
-        allPackages = commonPackages ++ veriblePackage ++ alternativeLspPackages;
+        alternativeLspPackages = if isAarch64Darwin then [ pkgs.surfer ] else [ ];
       in
       {
-        devShells.default = pkgs.mkShell {
-          name = "nm-elec-design";
-
-          packages = allPackages;
-
-          shellHook = ''
-            ${if builtins.length veriblePackage > 0 then "export PATH=$PATH:${pkgs.verible}/bin" else ""}
-
-            echo "SystemVerilog dev environment loaded!"
-            ${
-              if isAarch64Darwin then
-                ''
-                  echo "Note: Running on aarch64-darwin (M1/M2 Mac)"
-                  ${
-                    if builtins.length veriblePackage == 0 then
-                      ''
-                        echo "Warning: Verible is not available on this platform."
-                        echo "Consider using Rosetta 2 to run Nix in x86_64 mode for full functionality."
-                      ''
-                    else
-                      ""
-                  }
-                ''
+        devShells = {
+          default = pkgs.mkShell {
+            name = "nm-elec-design";
+            packages = commonPackages ++ veriblePackage ++ alternativeLspPackages;
+            shellHook = ''
+              ${if builtins.length veriblePackage > 0 then "export PATH=$PATH:${pkgs.verible}/bin\n" else ""}
+              echo "SystemVerilog dev environment loaded!"
+              ${
+                if isAarch64Darwin then
+                  ''
+                    echo "Note: Running on aarch64-darwin (M1/M2 Mac)"
+                    ${
+                      if builtins.length veriblePackage == 0 then
+                        ''
+                          echo "Warning: Verible is not available on this platform."
+                          echo "Consider using Rosetta 2 to run Nix in x86_64 mode for full functionality."
+                        ''
+                      else
+                        ""
+                    }
+                  ''
+                else
+                  ""
+              }
+              if command -v nu >/dev/null 2>&1; then
+                exec nu
               else
-                ""
-            }
+                echo "nu command not found, skipping shellHook"
+              fi
+            '';
+          };
 
-            if command -v nu >/dev/null 2>&1; then
-              exec nu
-            fi
-          '';
+          mojo = mojoPlayground.lib.mkShell {
+            inherit system;
+            projectName = "neuromorphic-mojo-project";
+            extraPackages = commonPackages ++ veriblePackage ++ alternativeLspPackages;
+          };
         };
       }
     );
