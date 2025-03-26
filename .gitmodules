@@ -1,0 +1,3 @@
+[submodule "signal_processing/signal_processing/mathsofsp2025"]
+	path = signal_processing/signal_processing/mathsofsp2025
+	url = git@github.com:WSU-Data-Science/mathsofsp2025.git
