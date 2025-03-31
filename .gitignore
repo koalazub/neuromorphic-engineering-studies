@@ -3,3 +3,4 @@ zig-out/
 .idea/
 *.mp*
 *.DS_Store
+julia-intellij
