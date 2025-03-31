@@ -33,9 +33,11 @@
             jupyter
             git
             uv
+            texlive.combined.scheme-full
           ];
           shellHook = ''
             if command -v nu >/dev/null; then
+              $env.JULIA_PROJECT = "./assign_1"
               exec nu
             else
               echo "nu not found, skipping shell hook"
