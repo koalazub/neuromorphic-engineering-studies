@@ -55,6 +55,7 @@
             typstyle
             tinymist
             uv
+            jetbrains-mono
           ];
 
           shellHook = ''
