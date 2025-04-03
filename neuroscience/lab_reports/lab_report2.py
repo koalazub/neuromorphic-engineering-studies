@@ -46,20 +46,37 @@ plt.plot(times, na_current)
 plt.title("Sodium Current")
 plt.xlabel("Time (ms)")
 plt.ylabel("Current (nA)")
-plt.text(
-    0,
-    0,
-    "when voltage-gate NA+ chanels open, this creates a rapid sodium ion influx. Causing the membrane potential to rise",
+fig = plt.figure(figsize=(12, 6))
+
+ax1 = plt.subplot(2, 1, 1)
+ax1.plot(times, voltage)
+ax1.set_title("Action Potential")
+ax1.set_ylabel("Membrane Potential (mV)")
+
+ax2 = plt.subplot(2, 1, 2)
+ax2.plot(times, na_current)
+ax2.set_title("Sodium Current")
+ax2.set_xlabel("Time (ms)")
+ax2.set_ylabel("Current (nA)")
+
+footer_text = (
+    "When voltage-gate Na⁺ channels open, this creates a rapid sodium ion influx. "
+    "Causing the membrane potential to rise."
+)  # footer to figure is better than plt.text() or whatever it's called
+
+fig.text(
+    0.5,  # x/y coords are normalised
+    0.01,
+    footer_text,
+    ha="center",
+    fontsize=10,
+    wrap=True,
 )
 
-plt.tight_layout()
+plt.tight_layout(rect=[0, 0.03, 1, 0.97])
 
 save_directory = "./lab_reports/lab_2/"
-
-if not os.path.exists(save_directory):
-    os.makedirs(save_directory)
-
-plt.tight_layout()
+os.makedirs(save_directory, exist_ok=True)
 plt.savefig(os.path.join(save_directory, "action_potential.png"))
 plt.show()
 
