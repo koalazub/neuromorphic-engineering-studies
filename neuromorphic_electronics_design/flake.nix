@@ -27,10 +27,25 @@
 
         isAarch64Darwin = system == "aarch64-darwin";
 
+        # VHDL specific packages
+        vhdlPackages = with pkgs; [
+          # ghdl # GHDL for VHDL simulation and analysis
+          yosys # Synthesis framework
+          vhdl-ls
+        ];
+
+        # Optional FPGA-specific tools
+        fpgaTools = with pkgs; [
+          nextpnr # Place and route tool
+          icestorm # For Lattice iCE40 FPGAs
+        ];
+
         commonPackages = with pkgs; [
-          iverilog # Icarus Verilog for simulation
+          # iverilog # Icarus Verilog for simulation
           verilator # Verilator for linting and synthesis
           python3 # For cocotb (testbench framework)
+          verible
+          nvc
           utm
           git
           uv
@@ -43,10 +58,10 @@
         devShells = {
           default = pkgs.mkShell {
             name = "nm-elec-design";
-            packages = commonPackages ++ veriblePackage ++ alternativeLspPackages;
+            packages = commonPackages ++ vhdlPackages ++ fpgaTools ++ veriblePackage ++ alternativeLspPackages;
             shellHook = ''
               ${if builtins.length veriblePackage > 0 then "export PATH=$PATH:${pkgs.verible}/bin\n" else ""}
-              echo "SystemVerilog dev environment loaded!"
+              echo "HDL dev environment loaded with VHDL and SystemVerilog support!"
               ${
                 if isAarch64Darwin then
                   ''
@@ -75,7 +90,8 @@
           mojo = mojoPlayground.lib.mkShell {
             inherit system;
             projectName = "neuromorphic-mojo-project";
-            extraPackages = commonPackages ++ veriblePackage ++ alternativeLspPackages;
+            extraPackages =
+              commonPackages ++ vhdlPackages ++ fpgaTools ++ veriblePackage ++ alternativeLspPackages;
           };
         };
       }

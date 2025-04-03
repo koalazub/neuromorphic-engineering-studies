@@ -1,7 +1,8 @@
-
+nrn/
 # pixi environments
 .pixi
 *.egg-info
 # magic environments
 .magic
 output
+neurons_in_action/

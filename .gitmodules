@@ -1,3 +1,6 @@
 [submodule "signal_processing/homework"]
 	path = signal_processing/homework
 	url = git@github.com:WSU-Data-Science/homework-1-koalazub.git
+[submodule "signal_processing/coursework"]
+	path = signal_processing/coursework
+	url = git@github.com:WSU-Data-Science/mathsofsp2025.git
