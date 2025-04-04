@@ -37,11 +37,9 @@ times = np.array(t)
 voltage = np.array(v)
 na_current = np.array(ina)
 
-plt.style.use("dark_background")
-
 plt.figure(figsize=(12, 8))
 
-# Membrane potential plot
+# Membrane potential plot to help visual how thresholds work and when the depolarisation kicks off
 plt.subplot(2, 1, 1)
 plt.plot(times, voltage, label="Membrane Potential", color="blue")
 plt.axvline(x=stim.delay, color="red", linestyle="--", label="Stimulus Start")
@@ -51,9 +49,10 @@ plt.title("Action Potential")
 plt.ylabel("Membrane Potential (mV)")
 plt.legend()
 
-# Sodium current plot
+# Sodium plot
 plt.subplot(2, 1, 2)
-plt.plot(times, na_current, label="Sodium Current", color="purple")
+# triggering the stimulus when the first few NA channels create the feedback cycle
+plt.plot(times, na_current, label="Sodium Current", color="purple") 
 plt.axvline(x=stim.delay, color="red", linestyle="--", label="Stimulus Start")
 plt.axvline(x=stim.delay + stim.dur, color="green", linestyle="--", label="Stimulus End")
 plt.title("Sodium Current")
@@ -61,21 +60,15 @@ plt.xlabel("Time (ms)")
 plt.ylabel("Current (nA)")
 plt.legend()
 
-footer_text = "The stimulus current depolarises teh membrane to threshold(that is, from -75mV to -55mV), which allow the first few voltage-gated sodium channels to open. This then becomes a self-reinforcing cycle that starts from a trickle of NA+ entering the neuron membrane in an acclerating matter. NA+ opens more NA channels which begets more NA+. The influx of NA+ drives the membrane potentail toward the sodium equilibrium potential "
-
-# add to .typ file when explainng below the caption mentioned above: regarding real neurons with Hodgkin-Huxley dynamics, this process occurs more explosively once threshold is reached, rather than the linear ramp we have scresnshotted
-plt.figtext(0.5, 0.01, footer_text, ha="center", fontsize=10, wrap=True)
-
-
 # clean up, save etc.
 save_directory = "./lab_reports/lab_2/"
 os.makedirs(save_directory, exist_ok=True)
 plt.tight_layout(rect=[0, 0.03, 1, 0.97])
-plt.savefig(os.path.join(save_directory, "enhanced_action_potential.png"))
+plt.savefig(os.path.join(save_directory, "action_potential.svg"))
 plt.show()
 
 np.savetxt(
-    os.path.join(save_directory, "enhanced_action_potential.csv"),
+    os.path.join(save_directory, "action_potential.csv"), # may as well save the datapoints too
     np.column_stack((times, voltage, na_current)),
     delimiter=",",
     header="time(ms),voltage(mV),na_current(nA",
