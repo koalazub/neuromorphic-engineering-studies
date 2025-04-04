@@ -33,7 +33,7 @@ def run_simulation():
 
     # Create a group of neurons
     G = NeuronGroup(100, eqs, threshold="v>-50*mV", reset="v=-60*mV", method="exact")
-    G.v = -60 * mV  # Initialize membrane potential
+    G.v = -60 * mV  # Initialise membrane potential
     G.I = 70 * mV  # Input current
     G.tau = 10 * ms  # Membrane time constant
 

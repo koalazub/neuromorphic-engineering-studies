@@ -1,18 +1,23 @@
 {
-  description = "Mojo Simulator flake";
+  description = "Neuroscience development envrironment for reports and documentation";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     mojo-playground.url = "github:franckrasolo/mojo-playground.nix";
+    tinymist = {
+      url = "github:Myriad-Dreamin/tinymist/main";
+      flake = false;
+    };
   };
 
   outputs =
     {
-      self,
       nixpkgs,
       flake-utils,
       mojo-playground,
+      tinymist,
+      ...
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
@@ -32,6 +37,14 @@
             python-lsp-server
           ]
         );
+
+        tinymistPkg = pkgs.rustPlatform.buildRustPackage {
+          pname = "tinymist";
+          version = "main";
+          src = tinymist;
+          cargoHash = "sha256-2Ko/2Oxg0XglLzXPQ1aTiy32mdqSoimqX49QCf/K1xc=";
+          doCheck = false;
+        };
       in
       {
         devShells.default = pkgs.mkShell {
@@ -49,17 +62,18 @@
             ruff
             ruff-lsp
             tokei
+            harper
             typst
             typstfmt
             typst-live
             typstyle
-            tinymist
+            tinymistPkg
             uv
             jetbrains-mono
           ];
 
           shellHook = ''
-            echo "Mojo + Brian2 environment loaded!"
+            echo "Neuroscience dev env entered"
             exec nu
           '';
         };

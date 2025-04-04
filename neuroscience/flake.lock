@@ -54,11 +54,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1743568003,
-        "narHash": "sha256-ZID5T65E8ruHqWRcdvZLsczWDOAWIE7om+vQOREwiX0=",
+        "lastModified": 1743689281,
+        "narHash": "sha256-y7Hg5lwWhEOgflEHRfzSH96BOt26LaYfrYWzZ+VoVdg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b7ba7f9f45c5cd0d8625e9e217c28f8eb6a19a76",
+        "rev": "2bfc080955153be0be56724be6fa5477b4eefabb",
         "type": "github"
       },
       "original": {
@@ -72,7 +72,8 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "mojo-playground": "mojo-playground",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "tinymist": "tinymist"
       }
     },
     "systems": {
@@ -87,6 +88,23 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tinymist": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1743719121,
+        "narHash": "sha256-CXy3CiALLtAsFsAWNyN7zz3Hi+0+DVNf5gR+ljL6Pks=",
+        "owner": "Myriad-Dreamin",
+        "repo": "tinymist",
+        "rev": "bceb93b944a15b6de0b3f6c0f3d26aa6370410d9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Myriad-Dreamin",
+        "ref": "main",
+        "repo": "tinymist",
         "type": "github"
       }
     }
