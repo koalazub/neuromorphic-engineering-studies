@@ -34,6 +34,7 @@
             git
             uv
             texlive.combined.scheme-full
+            vscode-extensions.julialang.language-julia
           ];
           shellHook = ''
             if command -v nu >/dev/null; then
