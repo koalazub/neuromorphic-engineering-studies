@@ -42,7 +42,7 @@
           pname = "tinymist";
           version = "main";
           src = tinymist;
-          cargoHash = "sha256-2Ko/2Oxg0XglLzXPQ1aTiy32mdqSoimqX49QCf/K1xc=";
+          cargoHash = "sha256-r2HVxsq9DyliU2ec06Lgz3Ihlvm7DtWbGvDp9RXM0T8=";
           doCheck = false;
         };
       in

@@ -37,7 +37,6 @@
         # Common packages for all platforms
         commonPackages = with pkgs; [
           verilator # Verilator for linting and synthesis
-          python3 # For cocotb (testbench framework)
           nvc
           git
           iverilog

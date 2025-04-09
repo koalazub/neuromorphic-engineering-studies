@@ -149,3 +149,5 @@ surfer half_adder.vcd
 - **For VHDL simulation failures**: Ensure VHDL files follow IEEE standards and check for type mismatches due to VHDL's strong typing system.
 
 - **For SystemVerilog compilation errors**: Verify you're using the `-g2012` flag with iverilog to enable SystemVerilog features.
+
+
